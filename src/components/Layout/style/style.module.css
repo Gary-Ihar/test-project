@@ -1,0 +1,85 @@
+.root {
+  z-index: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: var(--background);
+  overflow: hidden;
+}
+
+.header {
+  border-bottom: 1px solid var(--border-split);
+  padding: 26px 70px;
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.content {
+  overflow: auto;
+  padding: 60px 136px 36px 138px;
+  flex: 1;
+  z-index: 2;
+}
+
+.footer {
+  position: sticky;
+  bottom: 0;
+  border-top: 1px solid var(--border-split);
+  padding: 50px 76px 26px 70px;
+  z-index: 2;
+}
+
+.bgCircle1 {
+  z-index: 1;
+  position: absolute;
+  width: 50vw;
+  height: 30vh;
+  left: 5%;
+  top: -10%;
+  background: #b2f1de;
+  opacity: 0.5;
+  filter: blur(100px);
+  transform: rotate(-65.41deg);
+}
+
+.bgCircle2 {
+  z-index: 1;
+  position: absolute;
+  width: 50vw;
+  height: 30vh;
+  right: -5%;
+  top: -10%;
+  background: #3ac922;
+  opacity: 0.15;
+  filter: blur(100px);
+  transform: matrix(-0.42, -0.91, -0.91, 0.42, 0, 0);
+}
+
+.bgCircle3 {
+  z-index: 1;
+  position: absolute;
+  width: 50vw;
+  height: 60vh;
+  left: 0%;
+  bottom: -10%;
+  background: #3ac922;
+  opacity: 0.15;
+  filter: blur(100px);
+  transform: rotate(-65.41deg);
+}
+
+.bgCircle4 {
+  z-index: 1;
+  position: absolute;
+  width: 50vw;
+  height: 30vh;
+  right: 0%;
+  bottom: -10%;
+  background: #b2f1de;
+  opacity: 0.5;
+  filter: blur(100px);
+  transform: rotate(-131.25deg);
+}
