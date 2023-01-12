@@ -1,0 +1,53 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:mobx/recommended",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-no-leaked-values/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "env": {
+    "browser": true
+  },
+  "root": true,
+  "rules": {
+    "no-unused-vars": "error",
+    "no-console": "warn",
+    "no-constant-condition": "warn",
+    "mobx/missing-observer": "off",
+    "mobx/no-anonymous-observer": "warn",
+    "mobx/exhaustive-make-observable": "off",
+    "complexity": ["warn", 14],
+    "max-depth": ["error", 4],
+    "max-lines": [
+      "warn",
+      { "max": 420, "skipBlankLines": true, "skipComments": true }
+    ],
+    "curly": "error",
+    "react/no-unused-prop-types": 2,
+    "react/jsx-no-bind": ["warn"],
+    "react/jsx-no-duplicate-props": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "jsx-no-leaked-values/jsx-no-leaked-values": "error",
+    "no-shadow": "off",
+    "no-restricted-globals": "warn",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-shadow": "error",
+    "@typescript-eslint/no-use-before-define": [
+      "error",
+      {
+        "functions": true,
+        "classes": true,
+        "variables": true,
+        "enums": true,
+        "typedefs": true
+      }
+    ],
+    "@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/consistent-type-definitions": ["off", "type"]
+  }
+}
