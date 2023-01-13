@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import React, { useEffect } from 'react';
 import { Layout } from '../components/Layout';
 import { AppController } from './AppController';
+import { Header } from './Header';
 
 function reloadPage() {
   window.location.reload();
@@ -12,10 +13,6 @@ function reloadPage() {
 
 const App = observer(function App() {
   const { hasMetamask } = AppController;
-
-  useEffect(() => {
-    AppController.init();
-  }, []);
 
   useEffect(
     () =>
@@ -27,7 +24,7 @@ const App = observer(function App() {
               <span>
                 The application requires the{' '}
                 <a target="_blank" href="https://metamask.io/download/">
-                  Memtamask
+                  MetaMask
                 </a>{' '}
                 extension to work properly.
               </span>
@@ -40,7 +37,7 @@ const App = observer(function App() {
     [hasMetamask]
   );
 
-  return <Layout>Main</Layout>;
+  return <Layout header={<Header />} />;
 });
 
 export default App;
