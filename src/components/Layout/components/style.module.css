@@ -1,0 +1,41 @@
+.bgCircle {
+  z-index: 1;
+  position: absolute;
+  width: 50vw;
+  height: 30vh;
+  filter: blur(100px);
+}
+
+.white {
+  background: #b2f1de;
+  opacity: 0.5;
+}
+
+.green {
+  background: #3ac922;
+  opacity: 0.15;
+}
+
+.topLeft {
+  left: 0%;
+  top: 23%;
+  transform: rotate(-123.41deg);
+}
+
+.topRight {
+  right: 0%;
+  top: 6%;
+  transform: rotate(-200.41deg);
+}
+
+.bottomLeft {
+  left: 0%;
+  bottom: -10%;
+  transform: rotate(-153.41deg);
+}
+
+.bottomRight {
+  right: 0%;
+  bottom: 10%;
+  transform: rotate(-198.25deg);
+}
