@@ -8,5 +8,5 @@ declare module '*.module.css' {
 }
 
 interface Window {
-  ethereum: provider;
+  ethereum: provider | undefined;
 }

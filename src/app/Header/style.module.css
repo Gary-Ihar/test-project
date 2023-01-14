@@ -11,3 +11,20 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
+.walletBtn {
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 20px;
+}
+
+/* TODO: need padding component */
+.walletBtn__marginRight {
+  margin-right: 8px;
+}
+/* TODO: need padding component */
+.walletBtn__marginLeft {
+  margin-left: 8px;
+}

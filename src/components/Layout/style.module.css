@@ -28,6 +28,5 @@
   position: sticky;
   bottom: 0;
   border-top: 1px solid var(--border-split);
-  padding: 50px 76px 26px 70px;
   z-index: 2;
 }

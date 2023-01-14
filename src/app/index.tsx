@@ -1,41 +1,19 @@
-/* eslint-disable react/jsx-no-target-blank */
-import { Modal } from 'antd';
-import { when } from 'mobx';
 import { observer } from 'mobx-react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Layout } from '../components/Layout';
 import { AppController } from './AppController';
 import { Header } from './Header';
+import { useNoGoerliChain, useNoMetamask } from './hepers';
 
 function reloadPage() {
   window.location.reload();
 }
 
 const App = observer(function App() {
-  const { hasMetamask } = AppController;
+  const { hasMetaMask, chainId } = AppController;
 
-  useEffect(
-    () =>
-      when(
-        () => !hasMetamask,
-        () => {
-          Modal.confirm({
-            content: (
-              <span>
-                The application requires the{' '}
-                <a target="_blank" href="https://metamask.io/download/">
-                  MetaMask
-                </a>{' '}
-                extension to work properly.
-              </span>
-            ),
-            onOk: reloadPage,
-            okText: 'Reload page',
-          });
-        }
-      ),
-    [hasMetamask]
-  );
+  useNoMetamask(hasMetaMask, reloadPage);
+  useNoGoerliChain(chainId, AppController.transferToGoerliChain);
 
   return <Layout header={<Header />} />;
 });

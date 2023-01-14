@@ -13,7 +13,6 @@
   },
   "root": true,
   "rules": {
-    "no-unused-vars": "warn",
     "no-console": "warn",
     "no-constant-condition": "warn",
     "mobx/missing-observer": "off",
@@ -33,6 +32,7 @@
     "no-restricted-globals": "warn",
     "no-use-before-define": "off",
     "@typescript-eslint/no-shadow": "error",
+    "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-use-before-define": [
       "error",
       {
@@ -44,7 +44,7 @@
       }
     ],
     "@typescript-eslint/no-inferrable-types": "off",
-    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-explicit-any": "warn",
     "@typescript-eslint/consistent-type-definitions": ["off", "type"]
   }
 }

@@ -2,43 +2,30 @@ import { makeAutoObservable } from 'mobx';
 import { reaction } from 'mobx';
 import Web3 from 'web3';
 
-const CHAIN = 'goerli';
+export enum ChainId {
+  mainnet = '0x1',
+  ropsten = '0x3',
+  rinkeby = '0x4',
+  goerli = '0x5',
+  kovan = '0x2a',
+}
 
 class Store {
   private web3: Web3 | undefined;
+
   accKey?: string = undefined;
+  hasMetaMask = false;
+  chainId?: ChainId = undefined;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
 
     reaction(
-      () => this.web3,
-      () => {
-        if (this.web3) {
-          this.web3.eth.defaultChain = CHAIN;
-          this.connect(); //TODO: If only via click?
-          window.ethereum.on('accountsChanged', (accounts: Array<string> | unknown) => {
-            if (Array.isArray(accounts) && typeof accounts[0] === 'string') {
-              this.setAccount(accounts[0]);
-            }
-          });
-          window.ethereum.on('disconnect', () => {
-            this.setAccount();
-          });
-        }
-      }
-    );
-
-    reaction(
       () => this.accKey,
       () => {
-        // ок, отсюда можно разруливать реакции на все приложение относительно accKey
+        // можно чет менять, если кошелек меняется
       }
     );
-  }
-
-  get hasMetamask() {
-    return !!this.web3?.currentProvider;
   }
 
   get connected() {
@@ -46,26 +33,76 @@ class Store {
   }
 
   init() {
-    this.web3 = new Web3(window.ethereum);
+    if (window.ethereum) {
+      this.web3 = new Web3(window.ethereum);
+      this.changeMetaMask(!!window.ethereum.isMetaMask);
+    }
   }
 
   setAccount(key?: string) {
     this.accKey = key;
   }
 
-  async connect() {
+  changeMetaMask(value: boolean) {
+    this.hasMetaMask = value;
+  }
+
+  async transferToGoerliChain() {
     try {
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
-      this.web3?.eth.getAccounts((err, accounts) => {
-        if (err) {
-          // Error handle
-        } else {
-          this.setAccount(accounts[0]);
-        }
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: ChainId.goerli }],
       });
     } catch (e) {
-      // Error connect
+      console.log('Switch chain error', e);
     }
+  }
+
+  private setChainId(id: ChainId) {
+    this.chainId = id;
+  }
+
+  private async checkConnetction() {
+    return window.ethereum._metamask.isUnlocked(); // TODO: Yet experemental
+  }
+
+  async connect() {
+    if (this.web3 && (await this.checkConnetction())) {
+      this.initListeners();
+      try {
+        const acc = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        this.setChainId(window.ethereum.chainId); //TODO: NPE !!!
+        this.setAccount(acc[0]);
+      } catch (e) {
+        // Error connect
+      }
+    }
+  }
+
+  private initListeners() {
+    this.onChainChangeListener(() => window.location.reload());
+    this.onAccountChangeListener(this.setAccount);
+    this.onDisconnetListener(this.setAccount);
+  }
+
+  private onChainChangeListener(cb?: () => void) {
+    window.ethereum.on('chainChanged', () => {
+      cb?.();
+    });
+  }
+
+  private onAccountChangeListener(cb?: (accId: string) => void) {
+    window.ethereum.on('accountsChanged', (accounts: Array<string> | unknown) => {
+      if (Array.isArray(accounts) && typeof accounts[0] === 'string') {
+        cb?.(accounts[0]);
+      }
+    });
+  }
+
+  private onDisconnetListener(cb?: () => void) {
+    window.ethereum.on('disconnect', () => {
+      cb?.();
+    });
   }
 }
 
