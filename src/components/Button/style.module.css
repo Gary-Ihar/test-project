@@ -5,8 +5,18 @@
   color: #ffffff;
   display: inline-block;
   cursor: pointer;
+  font-family: 'Manrope';
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .btn-disabled {
   cursor: not-allowed;
+}
+
+@media (max-width: 762px) {
+  .btn {
+    font-size: 12px;
+    padding: 12px 24px;
+  }
 }

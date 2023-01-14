@@ -28,3 +28,25 @@
 .walletBtn__marginLeft {
   margin-left: 8px;
 }
+
+@media (max-width: 762px) {
+  .header {
+    justify-content: space-between;
+    padding: 15px 20px;
+  }
+
+  .logo {
+    position: relative;
+    left: unset;
+    transform: unset;
+  }
+
+  .logo > svg {
+    width: 90px;
+    height: 18px;
+  }
+
+  .walletBtn > div {
+    font-size: 12px !important;
+  }
+}

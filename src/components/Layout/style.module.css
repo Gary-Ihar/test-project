@@ -18,15 +18,20 @@
 }
 
 .content {
-  overflow: auto;
-  padding: 60px 136px 36px 138px;
   flex: 1;
   z-index: 2;
+  overflow: hidden auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.content > div:first-child {
+  padding: 60px 136px 36px 138px;
+  flex: 1;
 }
 
 .footer {
-  position: sticky;
-  bottom: 0;
+  position: relative;
   border-top: 1px solid var(--border-split);
   z-index: 2;
 }

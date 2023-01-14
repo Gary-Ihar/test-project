@@ -15,8 +15,10 @@ export const Layout = ({ children, footer, header }: PropsWithChildren<Props>) =
       <BgCircle position="bottomLeft" color="green" />
       <BgCircle position="bottomRight" color="white" />
       <div className={style.header}>{header}</div>
-      <div className={style.content}>{children}</div>
-      <div className={style.footer}>{footer}</div>
+      <div className={style.content}>
+        <div>{children}</div>
+        <div className={style.footer}>{footer}</div>
+      </div>
     </div>
   );
 };

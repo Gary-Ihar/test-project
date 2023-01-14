@@ -2,6 +2,7 @@ import { observer } from 'mobx-react';
 import React from 'react';
 import { Layout } from '../components/Layout';
 import { AppController } from './AppController';
+import { Footer } from './Footer';
 import { Header } from './Header';
 import { useNoGoerliChain, useNoMetamask } from './hepers';
 
@@ -15,7 +16,7 @@ const App = observer(function App() {
   useNoMetamask(hasMetaMask, reloadPage);
   useNoGoerliChain(chainId, AppController.transferToGoerliChain);
 
-  return <Layout header={<Header />} />;
+  return <Layout header={<Header />} footer={<Footer />} />;
 });
 
 export default App;

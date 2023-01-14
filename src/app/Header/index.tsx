@@ -2,8 +2,7 @@ import { AppController } from 'app/AppController';
 import { parseWalletId } from 'app/hepers';
 import { Button } from 'components/Button';
 import { TextItem } from 'components/TextItem';
-import { Logo, MetaMaskLogo } from 'icons';
-import SomeIcon from 'icons/SomeIcon';
+import { Logo, MetaMaskLogo, SomeIcon } from 'icons';
 import { observer } from 'mobx-react';
 import React from 'react';
 import style from './style.module.css';
@@ -22,7 +21,9 @@ const WalletInfoBtn = function WalletInfoBtn({ keyId }: { keyId: string }) {
   return (
     <div className={style.walletBtn}>
       <MetaMaskLogo className={style.walletBtn__marginRight} />
-      <TextItem>{parseWalletId(keyId)}</TextItem>
+      <TextItem weight="xStrong" type="primary">
+        {parseWalletId(keyId)}
+      </TextItem>
       <SomeIcon style={{ display: 'flex' }} className={style.walletBtn__marginLeft} />
     </div>
   );

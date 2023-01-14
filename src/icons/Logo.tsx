@@ -3,7 +3,14 @@ import React from 'react';
 export default function Logo(props: React.HTMLProps<HTMLSpanElement>) {
   return (
     <span role="img" className="anticon" {...props}>
-      <svg width="149" height="25" viewBox="0 0 149 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        width="149"
+        height="25"
+        viewBox="0 0 149 25"
+        fill="none"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           d="M18.4613 19.3411L12.8993 24.1418C4.75734 23.8187 0 21.8569 0 15.7637H6.20111C6.20111 18.2563 8.28393 19.3873 16.1418 19.3873C16.9939 19.3873 17.7749 19.3873 18.4613 19.3411Z"
           fill="#092326"
