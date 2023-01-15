@@ -4,7 +4,7 @@ import { Layout } from '../components/Layout';
 import { AppController } from './AppController';
 import { Footer } from './Footer';
 import { Header } from './Header';
-import { useMetaMaskErrorHandler, useNoGoerliChain, useNoMetaMask } from './hepers';
+import { useMetaMaskErrorHandler, useNoGoerliChain, useNoMetaMask } from './hooks';
 
 function reloadPage() {
   window.location.reload();
