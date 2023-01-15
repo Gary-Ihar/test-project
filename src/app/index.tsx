@@ -4,17 +4,18 @@ import { Layout } from '../components/Layout';
 import { AppController } from './AppController';
 import { Footer } from './Footer';
 import { Header } from './Header';
-import { useNoGoerliChain, useNoMetamask } from './hepers';
+import { useMetaMaskErrorHandler, useNoGoerliChain, useNoMetaMask } from './hepers';
 
 function reloadPage() {
   window.location.reload();
 }
 
 const App = observer(function App() {
-  const { hasMetaMask, chainId } = AppController;
+  const { hasMetaMask, chainId, error } = AppController;
 
-  useNoMetamask(hasMetaMask, reloadPage);
+  useNoMetaMask(hasMetaMask, reloadPage);
   useNoGoerliChain(chainId, AppController.transferToGoerliChain);
+  useMetaMaskErrorHandler(error);
 
   return <Layout header={<Header />} footer={<Footer />} />;
 });

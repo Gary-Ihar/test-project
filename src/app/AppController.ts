@@ -1,5 +1,4 @@
 import { makeAutoObservable } from 'mobx';
-import { reaction } from 'mobx';
 import Web3 from 'web3';
 
 export enum ChainId {
@@ -16,16 +15,10 @@ class Store {
   accKey?: string = undefined;
   hasMetaMask = false;
   chainId?: ChainId = undefined;
+  error?: number = undefined;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
-
-    reaction(
-      () => this.accKey,
-      () => {
-        // можно чет менять, если кошелек меняется
-      }
-    );
   }
 
   get connected() {
@@ -47,14 +40,20 @@ class Store {
     this.hasMetaMask = value;
   }
 
+  setErrorCode = (n?: number) => {
+    this.error = n;
+  };
+
   async transferToGoerliChain() {
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: ChainId.goerli }],
       });
-    } catch (e) {
-      console.log('Switch chain error', e);
+    } catch (e: any) {
+      if (typeof e?.code === 'number') {
+        this.setErrorCode(e.code);
+      }
     }
   }
 
@@ -62,19 +61,15 @@ class Store {
     this.chainId = id;
   }
 
-  private async checkConnetction() {
-    return window.ethereum._metamask.isUnlocked(); // TODO: Yet experemental
-  }
-
   async connect() {
-    if (this.web3 && (await this.checkConnetction())) {
+    try {
       this.initListeners();
-      try {
-        const acc = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        this.setChainId(window.ethereum.chainId); //TODO: NPE !!!
-        this.setAccount(acc[0]);
-      } catch (e) {
-        // Error connect
+      const acc = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      this.setChainId(window.ethereum.chainId); //TODO: NPE !!!
+      this.setAccount(acc[0]);
+    } catch (e: any) {
+      if (typeof e?.code === 'number') {
+        this.setErrorCode(e.code);
       }
     }
   }

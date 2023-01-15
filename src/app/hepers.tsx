@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-target-blank */
-import { Modal } from 'antd';
+import { Modal, notification } from 'antd';
 import { TextItem } from 'components/TextItem';
 import { when } from 'mobx';
 import React, { useEffect } from 'react';
@@ -11,7 +11,7 @@ export function parseWalletId(id: string) {
   return `${firstTenSymbols}...${lastFourSymbols}`;
 }
 
-export function useNoMetamask(hasMetaMask: boolean, onOk?: () => void) {
+export function useNoMetaMask(hasMetaMask: boolean, onOk?: () => void) {
   useEffect(
     () =>
       when(
@@ -21,7 +21,11 @@ export function useNoMetamask(hasMetaMask: boolean, onOk?: () => void) {
             closable: false,
             keyboard: false,
             icon: null,
-            title: <TextItem>Attention!</TextItem>,
+            title: (
+              <TextItem weight="strong" type="primary">
+                Attention!
+              </TextItem>
+            ),
             content: (
               <span>
                 The application requires the{' '}
@@ -33,7 +37,7 @@ export function useNoMetamask(hasMetaMask: boolean, onOk?: () => void) {
             ),
             onOk,
             okText: 'Reload page',
-            okButtonProps: { style: { backgroundColor: '#08d899' } },
+            okButtonProps: { style: { backgroundColor: 'var(--primary-color)' } },
             cancelButtonProps: { style: { display: 'none' } },
           });
         }
@@ -52,15 +56,29 @@ export function useNoGoerliChain(chainId?: ChainId, onOk?: () => void) {
             closable: false,
             keyboard: false,
             icon: null,
-            title: <TextItem>Attention!</TextItem>,
+            title: (
+              <TextItem weight="strong" type="primary">
+                Attention!
+              </TextItem>
+            ),
             content: <span>Will be switched to Goerli chain.</span>,
             onOk,
             okText: 'Ok, go!',
-            okButtonProps: { style: { backgroundColor: '#08d899' } },
+            okButtonProps: { style: { backgroundColor: 'var(--primary-color)' } },
             cancelButtonProps: { style: { display: 'none' } },
           });
         }
       ),
     [chainId, onOk]
   );
+}
+
+export function useMetaMaskErrorHandler(code?: number) {
+  useEffect(() => {
+    if (code === -32002) {
+      notification.error({
+        message: 'Please open the MetaMask extension, finish the registration process and try connetc againt.',
+      });
+    }
+  }, [code]);
 }
